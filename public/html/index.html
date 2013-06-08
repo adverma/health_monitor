@@ -5,10 +5,10 @@
     
         <style type="text/css">  
             #container {  
-				margin-left: 30px;
-				margin-top: 30px;
+		margin-left: 30px;
+		margin-top: 30px;
                 width: 1320px;
-				height:700px;  
+		height:700px;  
                 border: 1px solid #aaa; 
             }  
 		</style> 
@@ -114,23 +114,31 @@
 			 var rect12_inner2_text = paper.text(310, 600, "PAN Firewall");
 			  var rect13_inner2_text = paper.text(650, 600, "NVP Service Node");
 			  var rect14_inner2_text = paper.text(1170, 600, "PAN Firewall");
-			  
-			  
 			  var rect7_inner3_text = paper.text(800, 280, "NVP Controller");
 			  var rect13_inner3_text = paper.text(790, 600, "NVP Service Node");
 			  
 			 
-			 rect1_inner1.attr({id:11});
-			 rect1_inner2.attr({id:12});//green
-			 rect2_inner1.attr({id:21});//red
-			 rect2_inner2.attr({id:22});
-			 rect3_inner1.attr({id:31, fill:"#F0F8FF"});//grey
-			 rect3_inner2.attr({id:32, fill:"#F0F8FF"});		
-			  rect4_inner1.attr({id:41, fill:"#F0F8FF"});//grey
-			 rect4_inner2.attr({id:42, fill:"#F0F8FF"});	
-			 rect5_inner1.attr({id:51, fill:"#F0F8FF"});//grey
-			 rect5_inner2.attr({id:52, fill:"#F0F8FF"});	
-			
+			 for(var i =3; i<=14; i++)
+			 {
+				if(i!=7 && i!=10 && i!=13)
+				{
+					eval("rect"+i+"_inner1.attr({id:"+i+"1, fill:'#F0F8FF'})");
+					eval("rect"+i+"_inner2.attr({id:"+i+"2, fill:'#F0F8FF'})");
+				}
+				if(i==7 || i==13)
+				{
+					eval("rect"+i+"_inner1.attr({id:"+i+"1, fill:'#F0F8FF'})");
+					eval("rect"+i+"_inner2.attr({id:"+i+"2, fill:'#F0F8FF'})");
+					eval("rect"+i+"_inner3.attr({id:"+i+"3, fill:'#F0F8FF'})");
+					
+				}
+				if(i==10)
+				{
+					eval("rect"+i+"_inner.attr({id:"+i+", fill:'#F0F8FF'})");
+					
+				}
+			 }
+			 
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function()
 			{
@@ -138,8 +146,7 @@
 				{
 				var JSONObject = JSON.parse(xmlhttp.responseText);
 				var i =0;
-				//alert(JSONObject[0].host);
-				while(i<JSONObject.length)// last element is blank, so properties are ƒ for it
+				while(i<JSONObject.length)
 				{	
 				var host_name = JSONObject[i].host;
 				var healthy = JSONObject[i].healthy;
