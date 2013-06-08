@@ -1,0 +1,160 @@
+<html>  
+    <head>  
+        <title></title>  
+        <script type="text/javascript" src="/public/javascripts/raphael.js"></script>  
+    
+        <style type="text/css">  
+            #container {  
+				margin-left: 50px;
+				margin-top: 50px;
+                width: 1300px;
+				height:600px;  
+                border: 1px solid #aaa; 
+            }  
+		</style> 
+
+		<!--	 <script src="file:///Applications/play-2.1.2-RC1/play-app1/public/html/data.jsonp"></script>  -->
+             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+           <script type="text/javascript">
+			function draw() 
+			{
+			 var paper = new Raphael(document.getElementById('container'), 1600, 700);  
+       		 var rect2 = paper.rect(500, 100, 300, 150, 10);
+			  var rect1 = paper.rect(100, 100, 300, 150, 10); 
+			 var rect3 = paper.rect(300, 300, 300, 150, 10);
+			 var rect4 = paper.rect(900, 100, 300, 150, 10);
+			 var rect5 = paper.rect(700, 300, 300, 150, 10);
+			 
+			 var rect1_inner1 = paper.rect(123, 135, 120,100);
+			 var rect2_inner1 = paper.rect(523, 135, 120,100);
+			 var rect2_inner2 = paper.rect(660, 135,120,100);
+			 var rect1_inner2 = paper.rect(260, 135, 120,100);
+			 var rect3_inner1 = paper.rect(323, 335, 120,100);
+			 var rect3_inner2 = paper.rect(460, 335, 120, 100);
+			 
+			 var rect4_inner1 = paper.rect(923, 135, 120, 100);
+			 var rect4_inner2 = paper.rect(1060, 135, 120, 100); 
+			 var rect5_inner1 = paper.rect(723, 335, 120, 100);
+			 var rect5_inner2 = paper.rect(860, 335, 120, 100);
+			 			 
+			 var rect1_text = paper.text( 240, 120, "Controller"); 
+			 var rect2_text = paper.text(640,120, "Rabbit MQ");
+			 var rect3_text = paper.text(450, 320, "MySql");
+			  var rect4_text = paper.text(1040, 120, "DHCP");
+			   var rect5_text = paper.text(850, 320, "NVP");
+			   
+			 rect1_text.attr({"font-size":16, underline:true , font:"bold"});
+			 rect2_text.attr({"font-size":16, underline:true, font:"bold"});
+			rect3_text.attr({"font-size":16, underline:true, font:"bold"});
+			rect4_text.attr({"font-size":16, underline:true, font:"bold"});
+			rect5_text.attr({"font-size":16, underline:true, font:"bold"}); 
+			 
+			 var rect1_inner1_text = paper.text( 180, 150, "Controller Master"); 
+			 var rect2_inner1_text = paper.text(580,150, "Rabbit MQ Master");
+			 var rect3_inner1_text = paper.text(370, 350, "MySql Master");
+			  var rect4_inner1_text = paper.text(980, 150, "DHCP Master");
+			  var rect5_inner1_text = paper.text(770, 350, "NVP Master");
+			 
+			 var rect1_inner2_text = paper.text( 310, 150, "Controller Standby"); 
+			 var rect2_inner2_text = paper.text(720,150, "Rabbit MQ Standby");
+			 var rect3_inner2_text = paper.text(510, 350, "MySql Standby");	
+			 var rect4_inner2_text = paper.text(1110, 150, "DHCP Standby");
+			  var rect5_inner2_text = paper.text(900, 350, "NVP Standby");
+			 
+			 rect1_inner1.attr({id:11});
+			 rect1_inner2.attr({id:12});//green
+			 rect2_inner1.attr({id:21});//red
+			 rect2_inner2.attr({id:22});
+			 rect3_inner1.attr({id:31, fill:"#F0F8FF"});//grey
+			 rect3_inner2.attr({id:32, fill:"#F0F8FF"});		
+			  rect4_inner1.attr({id:41, fill:"#F0F8FF"});//grey
+			 rect4_inner2.attr({id:42, fill:"#F0F8FF"});	
+			 rect5_inner1.attr({id:51, fill:"#F0F8FF"});//grey
+			 rect5_inner2.attr({id:52, fill:"#F0F8FF"});	
+			
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if(xmlhttp.readyState==4 && xmlhttp.status==200)  //200-local
+				{
+				var JSONObject = JSON.parse(xmlhttp.responseText);
+				//var JSONObject = jquery.parseJSON(xmlhttp.responseText);
+				var i=0;
+				
+				check_service_status("phx8b03c-03f2", JSONObject, 1, 1); //controller master
+				check_service_status("phx7b02c-8a8a",JSONObject, 1, 2); //controller slave
+				
+				check_service_status("phx7b02c-0c9e",JSONObject, 2, 1); //rabbit mq master (check)
+				check_service_status("phx8b03c-b7aa", JSONObject, 2, 2); //rabbit mq slave (check)
+				}
+			} //onreadystatechange ()
+			xmlhttp.open("GET","status.txt",true);
+			
+			xmlhttp.send();
+			
+			
+			function check_service_status(host, JSONObject, rect, inner) //common function to check status of services of each host. If any one service is 			critical, the host is shown critical. If all services are non-critical, the host is shown OK.
+			{	
+				var i =0;
+				while(i<JSONObject.services.length-1)// last element is blank, so properties are undefined for it
+				{	
+				var host_name = JSONObject.services[i].service_host.host_name;
+				
+				while(host_name == host)//common function
+			    	{
+					var service_status = JSONObject.services[i].service_status;
+					if(service_status == "CRITICAL")
+						{ 
+							critical = true;
+							
+							eval("rect" + rect + "_inner"+inner+".attr({fill:'#FF0000'});");
+							//rect1_inner2.attr({fill:"#FF0000"});
+							while(JSONObject.services[i].service_host.host_name == host)
+							{
+							i++	;
+							}
+							host_name = JSONObject.services[i].service_host.host_name;
+							break;	
+						}
+						else
+						{
+							
+							while(JSONObject.services[i].service_status!="CRITICAL" && JSONObject.services[i].service_host.host_name == host)
+							{
+								i++;	
+							}
+						
+							if(JSONObject.services[i].service_host.host_name == host)
+							{
+								eval("rect" + rect + "_inner"+inner+".attr({fill:'#FF0000'});");
+								//rect1_inner2.attr({fill:"#FF0000"});//red
+								
+								while(JSONObject.services[i].service_host.host_name == host)
+								{
+								i++;
+								}
+								host_name = JSONObject.services[i].service_host.host_name;
+								break;
+							}
+							else
+							{	eval("rect" + rect + "_inner"+inner+".attr({fill:'#00FF00'});");
+								//rect1_inner2.attr("00FF00");	//green
+								host_name = JSONObject.services[i].service_host.host_name;
+								break;
+							}
+						
+						}
+					
+					}//while host_name==host
+				i++;
+			}//while i<JSONObject.services.length
+		
+		}//function check_service_status
+	}//draw()
+</script>
+    </head> 
+    <body onLoad="return draw()">  
+        <div id="container">  </div>
+        <div id="i1" align="right"></div>     
+    </body>  
+</html>  

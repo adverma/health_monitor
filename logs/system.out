@@ -1,0 +1,4 @@
+Listening for transport dt_socket at address: 8000
+16:45:21,621 INFO  ~ Starting /Users/adverma/health_monitor
+16:45:22,020 WARN  ~ You're running Play! in DEV mode
+16:45:22,076 ERROR ~ Could not bind on port 9000
