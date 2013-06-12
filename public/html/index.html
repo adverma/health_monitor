@@ -8,10 +8,10 @@
 			{  
 			margin-left: 30px;
 			margin-top: 30px;
-            width: 1320px;
+            		width: 1320px;
 			height:700px;  
-            border: 1px solid #aaa; 
-            }  
+          		border: 1px solid #aaa; 
+            		}  
 			#tip
 			{
 			position : absolute;
@@ -23,14 +23,14 @@
 			}
 	
 		</style> 
-		   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-           <script type="text/javascript" src="../javascripts/jquery.qtip-1.0.0-rc3.custom/jquery.qtip-1.0.0-rc3.min.js"></script>
-           <script type="text/javascript">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script type="text/javascript" src="../javascripts/jquery.qtip-1.0.0-rc3.custom/jquery.qtip-1.0.0-rc3.min.js"></script>
+                <script type="text/javascript">
 			function draw() 
 			{
 			 var paper = new Raphael(document.getElementById('container'), 1600, 700);  
 			 var rect1 = paper.rect(45, 20, 350, 90, 6); 
-       		 var rect2 = paper.rect(475, 20, 350, 90, 6);
+       			 var rect2 = paper.rect(475, 20, 350, 90, 6);
 			 var rect3 = paper.rect(905, 20, 350, 90, 6);
 			 var rect4 = paper.rect(45, 130, 350, 90, 6);
 			 var rect5 = paper.rect(475, 130, 350, 90, 6);
@@ -401,8 +401,6 @@
 			 function handleHoverIn() //called for all services (up or down)
 			 {	
 			 	var x = "<b>Services down:</b><br><ul>";
-			//	eval("var x = 'Services down: \n';");
-				
 				var id = this.id;
 				switch(id)
 				{ 
@@ -630,32 +628,31 @@
 				rect13_inner3_services.attr('text','');	
 				break;
 				}
-			// rect1_inner1_services.attr('text','');	
 			 }
 		
 		}
 		
 		$(document).mousemove(function(e){//mousemove
-  		  if (over){
-    		  tip.css("left", e.clientX+20).css("top", e.clientY+20);
+  		  if (over)
+  		  {
+    		       	 tip.css("left", e.clientX+20).css("top", e.clientY+20);
      			 tip.html(tipText);
-    			//tip.text("<b>hey!</b>");
-				}
-			});
+		  }
+		});
 
 		 function addTip(node, txt){
   		  $(node).mouseenter(function(){
-      		 tipText = txt;
-      		 tip.fadeIn("fast");//
-      	 	 over = true;
-   		 }).mouseleave(function(){
-     	  	tip.fadeOut(500);//200
-      	  	over = false;
+      			 tipText = txt;
+      	   		 tip.fadeIn("fast");//
+      	 	 	over = true;
+   			 }).mouseleave(function(){
+     	  		tip.fadeOut(500);//200
+      	  		over = false;
   	 	 });
 		}
 		
 	} //onreadystatechange ()
-			xmlhttp.open("GET","http://localhost:9000/health",true);
+			xmlhttp.open("GET","http://localhost:9000/health",true); 
 			xmlhttp.send();
 			
 	}//draw()
