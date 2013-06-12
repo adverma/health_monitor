@@ -1,0 +1,1 @@
+[{"component":"mysql.master","host":"mm.stratus.phx.ebay.com","healthy":"true"},{"component":"mysql.slave","host":"ms.stratus.phx.ebay.com","healthy":"false"}]

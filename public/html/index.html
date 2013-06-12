@@ -4,15 +4,27 @@
         <script type="text/javascript" src="../javascripts/raphael.js"></script>  
     
         <style type="text/css">  
-            #container {  
-		margin-left: 30px;
-		margin-top: 30px;
-                width: 1320px;
-		height:700px;  
-                border: 1px solid #aaa; 
+            #container 
+			{  
+			margin-left: 30px;
+			margin-top: 30px;
+            width: 1320px;
+			height:700px;  
+            border: 1px solid #aaa; 
             }  
+			#tip
+			{
+			position : absolute;
+ 			border : 1px solid gray;
+ 			background-color : #CCFFCC;
+ 			padding : 3px;
+ 			z-index: 1000;
+ 			max-width: 300px; /*200*/
+			}
+	
 		</style> 
 		   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+           <script type="text/javascript" src="../javascripts/jquery.qtip-1.0.0-rc3.custom/jquery.qtip-1.0.0-rc3.min.js"></script>
            <script type="text/javascript">
 			function draw() 
 			{
@@ -33,36 +45,50 @@
 			 var rect14 = paper.rect(905, 560, 350, 90, 6);
 			 
 			 var rect1_inner1 = paper.rect(60, 40, 150,55);
-			 var rect2_inner1 = paper.rect(490, 40, 150,55);
-			 var rect2_inner2 = paper.rect(660, 40,150,55);
+			 var rect1_inner1_services = paper.text(100, 140, "");
 			 var rect1_inner2 = paper.rect(230, 40,150,55);
+			 var rect1_inner2_services = paper.text(320, 140, "");
+			 var rect2_inner1 = paper.rect(490, 40, 150,55);
+			 var rect2_inner1_services = paper.text(500, 100, "");
+			 var rect2_inner2 = paper.rect(660, 40,150,55);
+			 var rect2_inner2_services = paper.text(780, 80, "");
 			 var rect3_inner1 = paper.rect(920, 40, 150,55);
 			 var rect3_inner2 = paper.rect(1085, 40, 150, 55);
 			 var rect4_inner1 = paper.rect(60, 150, 150,55);
+			 var rect4_inner2 = paper.rect(230, 150,150,55);
 			 var rect5_inner1 = paper.rect(490, 150, 150,55);
 			 var rect5_inner2 = paper.rect(660, 150,150,55);
-			 var rect4_inner2 = paper.rect(230, 150,150,55);
 			 var rect6_inner1 = paper.rect(920, 150, 150,55);
 			 var rect6_inner2 = paper.rect(1085, 150, 150, 55);
 			 
 			 var rect7_inner1 = paper.rect(410, 265, 140,55);
-			 var rect8_inner1 = paper.rect(470, 375, 150,55);
-			 var rect8_inner2 = paper.rect(635, 375,150,55);
 			 var rect7_inner2 = paper.rect(570, 265,140,55);
 			 var rect7_inner3 = paper.rect(730, 265,140,55);
+			 var rect8_inner1 = paper.rect(470, 375, 150,55);
+			 var rect8_inner2 = paper.rect(635, 375,150,55);
 			 var rect9_inner1 = paper.rect(60, 470, 150,55);
+			 var rect9_inner1_services = paper.text(180, 510, "");
 			 var rect9_inner2 = paper.rect(230, 470, 150, 55);
-			 
+			 var rect9_inner2_services = paper.text(350, 510, "");
+			
 			 var rect10_inner = paper.rect(540, 480, 150,55);
 			 var rect11_inner1 = paper.rect(920, 470, 150,55);
+			  var rect11_inner1_services = paper.text(1040, 510, "");
 			 var rect11_inner2 = paper.rect(1085, 470,150,55);
+			  var rect11_inner2_services = paper.text(1105, 510, "");
 			 var rect12_inner1 = paper.rect(60, 585, 150,55);
 			 var rect12_inner2 = paper.rect(230, 585, 150, 55);
 			 var rect13_inner1 = paper.rect(430, 590, 140,55);
+			 var rect13_inner1_services = paper.text(530, 630, "");
+			 var rect13_inner2 = paper.rect(580, 590,140,55);
+			 var rect13_inner2_services = paper.text(700, 630, "");
+			 var rect13_inner3 = paper.rect(730, 590, 140, 55);
+			 var rect13_inner3_services = paper.text(840, 630, "");
 			 var rect14_inner1 = paper.rect(920, 585, 150,55);
 			 var rect14_inner2 = paper.rect(1085, 585,150,55);
-			 var rect13_inner2 = paper.rect(580, 590,140,55);
-			 var rect13_inner3 = paper.rect(730, 590, 140, 55);
+			
+			 
+		
 			 			 
 			 var rect1_text = paper.text( 220, 30, "Rabbit MQ"); 
 			 var rect2_text = paper.text(640,30, "OS Controller");
@@ -117,15 +143,14 @@
 			  var rect7_inner3_text = paper.text(800, 280, "NVP Controller");
 			  var rect13_inner3_text = paper.text(790, 600, "NVP Service Node");
 			  
-			 
-			 for(var i =3; i<=14; i++)
-			 {
-				if(i!=7 && i!=10 && i!=13)
+			  for(var i =3; i<=14; i++)
+			   {
+				if(i!=7 && i!=10 && i!=13 && i!=9 && i!=11 && i!=13)
 				{
 					eval("rect"+i+"_inner1.attr({id:"+i+"1, fill:'#F0F8FF'})");
 					eval("rect"+i+"_inner2.attr({id:"+i+"2, fill:'#F0F8FF'})");
 				}
-				if(i==7 || i==13)
+				if(i==7)
 				{
 					eval("rect"+i+"_inner1.attr({id:"+i+"1, fill:'#F0F8FF'})");
 					eval("rect"+i+"_inner2.attr({id:"+i+"2, fill:'#F0F8FF'})");
@@ -138,6 +163,7 @@
 					
 				}
 			 }
+			 
 			 
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function()
@@ -154,17 +180,26 @@
 				{
 				case "phx8b03c-03f2.stratus.phx.ebay.com":
 				{
+					if(JSONObject[i].found==true)
+					{
 					if(healthy==true)
 					{
-					rect2_inner1.attr({fill:"#00FF00"});
+						rect2_inner1.attr({fill:"#00FF00"});
 					}
 					else
 					{
-					rect2_inner1.attr({fill:"#FF0000"});		
-					}		
+						rect2_inner1.attr({fill:"#FF0000"});		
+					}	
+					}
+					else
+					{
+						rect2_inner1.attr({fill:"#A9A9A9"});
+					}
 				}
 				case "phx7b02c-8a8a.stratus.phx.ebay.com":
 				{
+					if(JSONObject[i].found==true)
+					{
 					if(healthy==true)
 					{
 					rect2_inner2.attr({fill:"#00FF00"});
@@ -173,9 +208,16 @@
 					{
 					rect2_inner2.attr({fill:"#FF0000"});		
 					}		
+					}
+					else
+					{
+						rect2_inner2.attr({fill:"#A9A9A9"});
+					}
 				}
 				case "phx7b02c-0c9e.stratus.phx.ebay.com":
 				{
+					if(JSONObject[i].found==true)
+					{
 					if(healthy==true)
 					{
 					rect1_inner1.attr({fill:"#00FF00"});
@@ -184,9 +226,16 @@
 					{
 					rect1_inner1.attr({fill:"#FF0000"});		
 					}		
+					}
+					else
+					{
+						rect1_inner1.attr({fill:"#A9A9A9"});
+					}
 				}
 				case "phx8b03c-b7aa.stratus.phx.ebay.com":
 				{
+					if(JSONObject[i].found==true)
+					{
 					if(healthy==true)
 					{
 					rect1_inner2.attr({fill:"#00FF00"});
@@ -195,13 +244,417 @@
 					{
 					rect1_inner2.attr({fill:"#FF0000"});		
 					}		
+					}
+					else
+					{
+						rect1_inner2.attr({fill:"#A9A9A9"});
+					}
 				}
+				case "10.87.199.131.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect9_inner1.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect9_inner1.attr({fill:"#FF0000"});		
+					}		
+					}
+					else
+					{
+						rect9_inner1.attr({fill:"#A9A9A9"});
+					}
+				}
+				case "10.87.199.132.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect9_inner2.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect9_inner2.attr({fill:"#FF0000"});		
+					}		
+					}
+					else
+					{
+						rect9_inner2.attr({fill:"#A9A9A9"});
+					}
+				}
+				case "10.87.199.133.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect11_inner1.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect11_inner1.attr({fill:"#FF0000"});		
+					}		
+					}
+					else
+					{
+						rect1_inner1.attr({fill:"#A9A9A9"});
+					}
+				}
+				case "10.87.199.134.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect11_inner2.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect11_inner2.attr({fill:"#FF0000"});		
+					}		
+					}
+					else
+					{
+						rect11_inner2.attr({fill:"#A9A9A9"});
+					}
+				}
+				case "10.87.192.101.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect13_inner1.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect13_inner1.attr({fill:"#FF0000"});		
+					}	
+					}
+					else
+					{
+						rect13_inner1.attr({fill:"#A9A9A9"});
+					}	
+				}
+				case "10.87.194.102.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect13_inner2.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect13_inner2.attr({fill:"#FF0000"});		
+					}	
+					}
+					else
+					{
+						rect13_inner2.attr({fill:"#A9A9A9"});
+					}	
+				}
+				case "10.87.196.101.stratus.phx.ebay.com":
+				{
+					if(JSONObject[i].found==true)
+					{
+					if(healthy==true)
+					{
+					rect13_inner3.attr({fill:"#00FF00"});
+					}
+					else
+					{
+					rect13_inner3.attr({fill:"#FF0000"});		
+					}		
+					}
+					else
+					{
+						rect13_inner3.attr({fill:"#A9A9A9"});
+					}
+				}
+				
 				
 				}//switch
 				i=i+1;
 				}//while i <JSONObjet.length
+			
+				var tip = $("#tip").hide();
+				var tipText = "";
+				var over = false;
+				for(var i=1; i<=2; i++)
+				 {
+				eval("rect"+i+"_inner1.hover(handleHoverIn, handleHoverOut);");
+				eval("rect"+i+"_inner2.hover(handleHoverIn, handleHoverOut);");
 				}
-			} //onreadystatechange ()
+				rect9_inner1.hover(handleHoverIn, handleHoverOut);
+				rect9_inner2.hover(handleHoverIn, handleHoverOut);
+				rect11_inner1.hover(handleHoverIn, handleHoverOut);
+				rect11_inner2.hover(handleHoverIn, handleHoverOut);
+				rect13_inner1.hover(handleHoverIn, handleHoverOut);
+				rect13_inner2.hover(handleHoverIn, handleHoverOut);
+				rect13_inner3.hover(handleHoverIn, handleHoverOut);
+				
+			 function handleHoverIn() //called for all services (up or down)
+			 {	
+			 	var x = "<b>Services down:</b><br><ul>";
+			//	eval("var x = 'Services down: \n';");
+				
+				var id = this.id;
+				switch(id)
+				{ 
+				case(14):
+				var j=0;
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect1_inner1.node, x.toString());
+				}
+				break;
+				case (16):
+				var j =1;
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect1_inner2.node, x);
+				}
+				break;
+				case (18):
+				var j =2;
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect2_inner1.node, x);
+				}
+				break;
+				case (20):
+				var j =3;
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect2_inner2.node, x);
+				}
+				break;
+				case (35):
+				var j =4;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect9_inner1.node, x);
+				}
+				break;
+				case (37):
+				var j =5;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect9_inner2.node, x);
+				}
+				break;
+				case (40):
+				var j =6;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect11_inner1.node, x);
+				}
+				break;
+				case (42):
+				var j =7;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect11_inner2.node, x);
+				}
+				break;
+				case (46):
+				var j =8;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect13_inner1.node, x);
+				}
+				break;
+				case (48):
+				var j =9;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect13_inner2.node, x);
+				}
+				break;
+				case (50):
+				var j =10;
+				if(JSONObject[j].down_services.length!=0)
+				{
+				for(var i =0; i<JSONObject[j].down_services.length; i++)
+				{
+				 x = x +"<li>"+JSONObject[j].down_services[i]+"</li>";	
+				}
+				x=x+"<li>"+JSONObject[j].down_services[i]+"</li></ul>";
+				}
+				else
+				{
+				x = "All services are up!";
+				}
+				if(JSONObject[j].found!=false)
+				{
+				addTip(rect13_inner3.node, x);
+				}
+				break;
+				
+				}
+				
+			 }
+			  function handleHoverOut()
+			 {	
+			 var id = this.id;
+				switch(id)
+				{
+				case(14):
+				rect1_inner1_services.attr('text','');	
+				break;
+				case(16):
+				rect1_inner2_services.attr('text','');	
+				break;
+				case(18):
+				rect2_inner1_services.attr('text','');	
+				break;
+			 	case(20):
+				rect2_inner2_services.attr('text','');	
+				break;
+				case(35):
+				rect9_inner1_services.attr('text','');	
+				break;
+				case(37):
+				rect9_inner2_services.attr('text','');	
+				break;
+				case(40):
+				rect11_inner1_services.attr('text','');	
+				break;
+				case(42):
+				rect11_inner2_services.attr('text','');	
+				break;
+				case(46):
+				rect13_inner1_services.attr('text','');	
+				break;
+				case(48):
+				rect13_inner2_services.attr('text','');	
+				break;
+				case(50):
+				rect13_inner3_services.attr('text','');	
+				break;
+				}
+			// rect1_inner1_services.attr('text','');	
+			 }
+		
+		}
+		
+		$(document).mousemove(function(e){//mousemove
+  		  if (over){
+    		  tip.css("left", e.clientX+20).css("top", e.clientY+20);
+     			 tip.html(tipText);
+    			//tip.text("<b>hey!</b>");
+				}
+			});
+
+		 function addTip(node, txt){
+  		  $(node).mouseenter(function(){
+      		 tipText = txt;
+      		 tip.fadeIn("fast");//
+      	 	 over = true;
+   		 }).mouseleave(function(){
+     	  	tip.fadeOut(500);//200
+      	  	over = false;
+  	 	 });
+		}
+		
+	} //onreadystatechange ()
 			xmlhttp.open("GET","http://localhost:9000/health",true);
 			xmlhttp.send();
 			
@@ -210,6 +663,8 @@
     </head> 
     <body onLoad="return draw()">  
         <div id="container">  </div>
-        <div id="i1" align="right"></div>     
+        <div id="i1" align="right"></div>   
+        <div id="tip"></div>  
+    
     </body>  
 </html>  
