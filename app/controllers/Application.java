@@ -1,22 +1,22 @@
 package controllers;
-
 import play.*;
-
 import play.mvc.*;
-
 import java.io.*;
-
 import java.net.*;
 import java.util.*;
+
+import javax.sql.DataSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
+import com.mysql.jdbc.Connection;
+
 import play.mvc.*;
 import org.json.*; 
 import play.libs.ws.*;
-
+import play.db.*;
 
 public class Application extends Controller {
 
@@ -31,7 +31,7 @@ public class Application extends Controller {
     	String password = "readonly";  
     	StringBuilder sb = new StringBuilder();
     	
-      /*  try {
+        try {
 			Authenticator.setDefault(new MyAuthenticator(username, password));  
 			URL url = new URL(urlString);  
 			URLConnection conn = url.openConnection();  
@@ -55,7 +55,10 @@ public class Application extends Controller {
 			
 			e.printStackTrace();
 		}
-      String str =sb.toString();
+    // DataSource ds = DB.datasource;  
+    // Connection conn = ds.getConnection();
+     
+     String str =sb.toString();
      JSONArray arr = new JSONArray();
      int index=0;
      arr = check_service_status("phx7b02c-0c9e", str, "Rabbit MQ master", arr, index); 
@@ -66,13 +69,13 @@ public class Application extends Controller {
     index++;
     arr = check_service_status("phx7b02c-8a8a", str, "Controller slave", arr, index); 
     index++;
-    arr = check_service_status("10.87.199.131", str, "NVP gateway", arr, index); 
+    arr = check_service_status("10.87.199.131", str, "NVP gateway", arr, index); //site
     index++; 
-    arr = check_service_status("10.87.199.132", str, "NVP gateway", arr, index); 
+    arr = check_service_status("10.87.199.132", str, "NVP gateway", arr, index); //site
     index++;
-    arr = check_service_status("10.87.199.133", str, "NVP gateway", arr, index); 
+    arr = check_service_status("10.87.199.133", str, "NVP gateway", arr, index); //corp
     index++;
-    arr = check_service_status("10.87.199.134", str, "NVP gateway", arr, index); 
+    arr = check_service_status("10.87.199.134", str, "NVP gateway", arr, index); //corp
     index++;
     arr = check_service_status("10.87.192.101", str, "NVP service node ", arr, index); 
     index++;
@@ -80,8 +83,23 @@ public class Application extends Controller {
     index++;
     arr = check_service_status("10.87.196.101", str, "NVP service node", arr, index);
     index++;
-   
-    
+   arr = check_service_status("phx7b02c-d551", str, "NVP controller", arr, index);//NVP controller
+    index++;
+    arr = check_service_status("phx8b03c-8323", str, "NVP controller", arr, index);//NVP controller
+    index++;
+    arr = check_service_status("phx8b03c-c809", str, "NVP controller", arr, index);//NVP controller
+    index++;
+    arr = check_service_status("phx8b03c-c476", str, "Openstratus DHCP", arr, index);//OS DHCP
+    index++;
+    arr = check_service_status("chd1b01c-d84b ", str, "Nova compute", arr, index);
+    index++;
+  /*  arr = check_service_status("phx8b03c-022e", str, "Nova compute", arr, index);
+    index++;
+    arr = check_service_status("phx8b03c-068a", str, "Nova compute", arr, index);
+    index++;
+    arr = check_service_status("phx8b03c-06df", str, "Nova compute", arr, index);
+    index++;
+   */ 
     
     renderText(arr.toString(1));
     }//health()
@@ -101,9 +119,18 @@ public class Application extends Controller {
     	
     	 while(host_name.equals(host))
     	 {
+    		 String description = services_arr.getJSONObject(service).getString("service_description");
+    		 String lastword = description.substring(description.lastIndexOf(" ")+1);
+    		 Boolean ignore = false;
+    		 if(lastword.equals(":I:"))
+    		 {
+    			 ignore = true;
+    		 }
+    		 
+    		 
     		 found = true;
     		String host_status = services_arr.getJSONObject(service).getString("service_status");
-    		if(host_status.equals("CRITICAL"))
+    		if(host_status.equals("CRITICAL")  && ignore==false)
     		{
     			while(host_name.equals(host))
     			{
@@ -155,8 +182,6 @@ public class Application extends Controller {
  			return arr;
     	}
     return arr;
-    
-    */
     }
 }//class Application
 
