@@ -5,10 +5,10 @@
 	
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/usr/local/Cellar/play/1.2.4/libexec/framework/play-1.2.4.jar" sourcepath="/usr/local/Cellar/play/1.2.4/libexec/framework/src" />
-	<classpathentry kind="lib" path="/Users/adverma/health_monitor/lib/gson/gson-2.2.4-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Users/adverma/health_monitor/lib/gson/gson-2.2.4-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/adverma/health_monitor/lib/gson/gson-2.2.4.jar" sourcepath="/Users/adverma/health_monitor/lib/gson/gson-2.2.4-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/adverma/health_monitor/lib/java-json.jar"/>
+	<classpathentry kind="lib" path="/Users/adverma/Documents/health_monitor/lib/gson/gson-2.2.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/adverma/Documents/health_monitor/lib/gson/gson-2.2.4-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/adverma/Documents/health_monitor/lib/gson/gson-2.2.4.jar" sourcepath="/Users/adverma/Documents/health_monitor/lib/gson/gson-2.2.4-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/adverma/Documents/health_monitor/lib/java-json.jar"/>
 	<classpathentry kind="lib" path="/usr/local/Cellar/play/1.2.4/libexec/framework/lib/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/usr/local/Cellar/play/1.2.4/libexec/framework/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="/usr/local/Cellar/play/1.2.4/libexec/framework/lib/asm-all-3.3.1.jar"/>

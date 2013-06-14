@@ -13,8 +13,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
-
-//import models.*;
 import play.mvc.*;
 import org.json.*; 
 import play.libs.ws.*;
@@ -60,23 +58,42 @@ public class Application extends Controller {
       String str =sb.toString();
      JSONArray arr = new JSONArray();
      int index=0;
-    arr = check_service_status("phx8b03c-03f2", str, "Controller master", arr, index); //controller master
+     arr = check_service_status("phx7b02c-0c9e", str, "Rabbit MQ master", arr, index); 
+     index++;
+     arr = check_service_status("phx8b03c-b7aa", str, "Rabbit MQ slave", arr, index); 
+     index++;
+    arr = check_service_status("phx8b03c-03f2", str, "Controller master", arr, index); 
     index++;
-    arr = check_service_status("phx7b02c-8a8a", str, "Controller slave", arr, index); //controller slave
+    arr = check_service_status("phx7b02c-8a8a", str, "Controller slave", arr, index); 
     index++;
-    arr = check_service_status("phx7b02c-0c9e", str, "MySQL Master", arr, index); //rabbit mq master (check)
+    arr = check_service_status("10.87.199.131", str, "NVP gateway", arr, index); 
+    index++; 
+    arr = check_service_status("10.87.199.132", str, "NVP gateway", arr, index); 
     index++;
-    arr = check_service_status("phx8b03c-b7aa", str, "MySQL Slave", arr, index); //rabbit mq slave (check)
+    arr = check_service_status("10.87.199.133", str, "NVP gateway", arr, index); 
+    index++;
+    arr = check_service_status("10.87.199.134", str, "NVP gateway", arr, index); 
+    index++;
+    arr = check_service_status("10.87.192.101", str, "NVP service node ", arr, index); 
+    index++;
+    arr = check_service_status("10.87.194.102", str, "NVP service node", arr, index); 
+    index++;
+    arr = check_service_status("10.87.196.101", str, "NVP service node", arr, index);
+    index++;
+   
+    
+    
     renderText(arr.toString(1));
     }//health()
   
+    
     @Util
     public static JSONArray check_service_status(String host, String str, String object_name, JSONArray arr, int index) throws JSONException
     {
     	JSONObject obj = new JSONObject(str);
     	JSONArray services_arr = obj.getJSONArray("services");
     	int service=0;
-    	
+    	Boolean found =false;
     	while(service<services_arr.length()-1)
     	{
     	ArrayList<String> down = new ArrayList<String>();	
@@ -84,6 +101,7 @@ public class Application extends Controller {
     	
     	 while(host_name.equals(host))
     	 {
+    		 found = true;
     		String host_status = services_arr.getJSONObject(service).getString("service_status");
     		if(host_status.equals("CRITICAL"))
     		{
@@ -101,19 +119,23 @@ public class Application extends Controller {
     			JSONObject object = new JSONObject();
     			object.put("object_name",object_name);
     			object.put("host",host+".stratus.phx.ebay.com" );
+    			object.put("found", true);
     			object.put("healthy", false);
-    			object.put("down services", down);
+    			object.put("down_services", down);
     			arr.put(index, object);
     			return arr;
     		}
     		 service++;
+    		 host_name = services_arr.getJSONObject(service).getJSONObject("service_host").getString("host_name");
     		 if(!host_name.equals(host))
     		 {
     			 //render green
     			JSONObject object = new JSONObject();
     			object.put("object_name",object_name);
      			object.put("host",host+".stratus.phx.ebay.com" );
+     			object.put("found", true);
      			object.put("healthy", true);
+     			object.put("down_services", "");
      			arr.put(index, object);
      			return arr;
     		 }
@@ -121,6 +143,17 @@ public class Application extends Controller {
     	 }
     	 service++;
 	}
+    	if(found==false)
+    	{
+    		JSONObject object = new JSONObject();
+			object.put("object_name",object_name);
+ 			object.put("host",host+".stratus.phx.ebay.com" );
+ 			object.put("found", false);
+ 			object.put("healthy", false);
+ 			object.put("down_services", "");
+ 			arr.put(index, object);
+ 			return arr;
+    	}
     return arr;
     
     */
