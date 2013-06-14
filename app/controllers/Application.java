@@ -33,7 +33,7 @@ public class Application extends Controller {
     	String password = "readonly";  
     	StringBuilder sb = new StringBuilder();
     	
-        try {
+      /*  try {
 			Authenticator.setDefault(new MyAuthenticator(username, password));  
 			URL url = new URL(urlString);  
 			URLConnection conn = url.openConnection();  
@@ -122,6 +122,8 @@ public class Application extends Controller {
     	 service++;
 	}
     return arr;
+    
+    */
     }
 }//class Application
 
