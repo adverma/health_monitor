@@ -120,25 +120,18 @@ public class Application extends Controller {
     	 while(host_name.equals(host))
     	 {
     		 String description = services_arr.getJSONObject(service).getString("service_description");
-    		 String lastword = description.substring(description.lastIndexOf(" ")+1);
-    		 Boolean ignore = false;
-    		 if(lastword.equals(":I:"))
-    		 {
-    			 ignore = true;
-    		 }
-    		 
-    		 
     		 found = true;
     		String host_status = services_arr.getJSONObject(service).getString("service_status");
-    		if(host_status.equals("CRITICAL")  && ignore==false)
+    		if(host_status.equals("CRITICAL"))
     		{
     			while(host_name.equals(host))
     			{
-    				if(services_arr.getJSONObject(service).getString("service_status").equals("CRITICAL"))
+    				if(services_arr.getJSONObject(service).getString("service_status").equals("CRITICAL") && !description.contains(":I:"))
     				{
     				down.add(services_arr.getJSONObject(service).getString("service_description"));
     				}
     				service++;
+    				description = services_arr.getJSONObject(service).getString("service_description");
     				host_name = services_arr.getJSONObject(service).getJSONObject("service_host").getString("host_name");
     			}
     			

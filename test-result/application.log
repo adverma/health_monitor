@@ -1,5 +1,4 @@
-06 Jun 2013 14:46:42,198 INFO  ~ Starting /Users/adverma/health_monitor
-06 Jun 2013 14:46:42,619 WARN  ~ You're running Play! in DEV mode
-06 Jun 2013 14:46:42,686 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-06 Jun 2013 14:46:47,742 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
-06 Jun 2013 14:46:47,760 INFO  ~ Application 'health_monitor' is now started !
+14 Jun 2013 16:45:10,147 INFO  ~ Starting /Users/adverma/Documents/health_monitor/.
+14 Jun 2013 16:45:10,551 WARN  ~ You're running Play! in DEV mode
+14 Jun 2013 16:45:11,542 INFO  ~ Connected to jdbc:mysql://localhost/mysql?useUnicode=yes&characterEncoding=UTF-8&connectionCollation=utf8_general_ci
+14 Jun 2013 16:45:11,552 INFO  ~ Application 'health_monitor' is now started !
